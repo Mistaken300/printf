@@ -15,7 +15,7 @@ int print_rot13string(va_list types, char buffer[],
 {
 	char x;
 	char *str;
-	unsigned int i, j;
+	unsigned int d, m;
 	int count = 0;
 	char in[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	char out[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
@@ -29,21 +29,21 @@ int print_rot13string(va_list types, char buffer[],
 
 	if (str == NULL)
 		str = "(AHYY)";
-	for (i = 0; str[i]; i++)
+	for (d = 0; str[d]; d++)
 	{
-		for (j = 0; in[j]; j++)
+		for (m = 0; in[m]; m++)
 		{
-			if (in[j] == str[i])
+			if (in[m] == str[d])
 			{
-				x = out[j];
+				x = out[m];
 				write(1, &x, 1);
 				count++;
 				break;
 			}
 		}
-		if (!in[j])
+		if (!in[m])
 		{
-			x = str[i];
+			x = str[d];
 			write(1, &x, 1);
 			count++;
 		}
