@@ -1,21 +1,21 @@
 #include "main.h"
 
 /**
- * write_num - Write a number to the buffer with formatting.
- * @ind: Index where the number starts in the buffer.
- * @buffer: Buffer array to write the number.
- * @flags: Flags affecting the number's printing behavior.
- * @width: Width specifier for formatting.
- * @prec: Precision specifier for formatting.
- * @len: Len of the number.
- * @padd: Padding character.
- * @extra_c: Extra character to be added to the number.
+ * write_num - Write a number using a bufffer
+ * @ind: Index at which the number starts on the buffer
+ * @buffer: Buffer
+ * @flags: Flags
+ * @width: width
+ * @prec: Precision specifier
+ * @length: Number length
+ * @padd: Pading char
+ * @extra_c: Extra char
  *
- * Return: Number of printed characters.
+ * Return: Number of printed chars.
  */
 int write_num(int ind, char buffer[],
 	int flags, int width, int prec,
-	int len, char padd, char extra_c)
+	int length, char padd, char extra_c)
 {
 	int i, padd_start = 1;
 
@@ -23,22 +23,22 @@ int write_num(int ind, char buffer[],
 		return (0); /* printf(".0d", 0)  no char is printed */
 	if (prec == 0 && ind == BUFF_SIZE - 2 && buffer[ind] == '0')
 		buffer[ind] = padd = ' '; /* width is displayed with padding ' ' */
-	if (prec > 0 && prec < len)
+	if (prec > 0 && prec < length)
 		padd = ' ';
-	while (prec > len)
-		buffer[--ind] = '0', len++;
+	while (prec > length)
+		buffer[--ind] = '0', length++;
 	if (extra_c != 0)
-		len++;
-	if (width > len)
+		length++;
+	if (width > length)
 	{
-		for (i = 1; i < width - len + 1; i++)
+		for (i = 1; i < width - length + 1; i++)
 			buffer[i] = padd;
 		buffer[i] = '\0';
 		if (flags & F_MINUS && padd == ' ')/* Asign extra char to left of buffer */
 		{
 			if (extra_c)
 				buffer[--ind] = extra_c;
-			return (write(1, &buffer[ind], len) + write(1, &buffer[1], i - 1));
+			return (write(1, &buffer[ind], length) + write(1, &buffer[1], i - 1));
 		}
 		else if (!(flags & F_MINUS) && padd == ' ')/* extra char to left of buff */
 		{
